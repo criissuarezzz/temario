@@ -137,7 +137,157 @@ def quicksort(lista, primero, ultimo):
     derecha=ultimo-1
     pivote=ultimo
     while(izquierda<derecha):
-        while lista[izquierda]<lista[pivote] and izquierda<=derecha:
+        while(lista[izquierda]<=lista[pivote] and izquierda<derecha):
             izquierda+=1
-        while lista[derecha]>lista[pivote] and derecha >= izquierda:
-            
+        while(lista[derecha]>lista[pivote] and derecha>izquierda):
+            derecha-=1
+        if(izquierda<derecha):
+            lista[izquierda], lista[derecha] = lista[derecha], lista[izquierda]
+    if(lista[izquierda]>lista[pivote]):
+        lista[izquierda], lista[pivote] = lista[pivote], lista[izquierda]
+    if(primero<izquierda-1):
+        quicksort(lista, primero, izquierda-1)
+    if(ultimo>izquierda+1):
+        quicksort(lista, izquierda+1, ultimo)
+    return lista
+
+#puesto a prueba:
+print("Quick sort:")
+print(quicksort([11,3,81,7,45], 0, 4))
+
+
+#ordenamiento por mezcla
+#11  3  81  7   45  #se divide la lista en dos partes
+#(11 3 81) (7 45)  #se divide cada una de las dos partes en dos partes
+#(11 3) (81) (7 45)  #se divide cada una de las cuatro partes en dos partes
+#(11) (3) (81) (7) (45)  #se divide cada una de las ocho partes en dos partes
+#(3 11) (81) (7 45)  #se comparan los numeros de cada parte y se ordenan
+#(11) (3) (81) (7) (45)  #se comparan los numeros de cada parte y se ordenan
+#(3 11) (7 45) (81)  #se comparan los numeros de cada parte y se ordenan
+#(3 7 11 45) (81)  #se comparan los numeros de cada parte y se ordenan
+#(3 7 11 45 81)  #se comparan los numeros de cada parte y se ordenan
+
+def mezcla(lista):
+    if len(lista)<=1:
+        return lista
+    else:
+        medio=len(lista)//2
+        izquierda=mezcla(lista[:medio])
+        derecha=mezcla(lista[medio:])
+        return mezclar(izquierda, derecha)
+    
+def mezclar(izquierda, derecha):
+    resultado=[]
+    i=0
+    j=0
+    while i<len(izquierda) and j<len(derecha):
+        if izquierda[i]<derecha[j]:
+            resultado.append(izquierda[i])
+            i+=1
+        else:
+            resultado.append(derecha[j])
+            j+=1
+    resultado+=izquierda[i:]
+    resultado+=derecha[j:]
+    return resultado
+
+#puesto a prueba:
+print("Mezcla:")
+print(mezcla([11,3,81,7,45]))
+
+
+#ordenamiento por mezcla contar cuantos pasos
+def mezcla_contar(lista):
+    if len(lista)<=1:
+        return lista
+    else:
+        medio=len(lista)//2
+        izquierda=mezcla_contar(lista[:medio])
+        derecha=mezcla_contar(lista[medio:])
+        return mezclar_contar(izquierda, derecha)
+    
+def mezclar_contar(izquierda, derecha):
+    resultado=[]
+    i=0
+    j=0
+    while i<len(izquierda) and j<len(derecha):
+        if izquierda[i]<derecha[j]:
+            resultado.append(izquierda[i])
+            i+=1
+        else:
+            resultado.append(derecha[j])
+            j+=1
+    resultado+=izquierda[i:]
+    resultado+=derecha[j:]
+    print(resultado)
+    return resultado
+
+#puesto a prueba:
+print("Mezcla contar:")
+print(mezcla_contar([11,3,81,7,45]))
+
+#mezclar listas
+def merge(izquierda, derecha):
+    lista_mezclada = []
+    while len(izquierda) > 0 and len(derecha) > 0:
+        if izquierda[0] < derecha[0]:
+            lista_mezclada.append(izquierda[0])
+            izquierda.remove(izquierda[0])
+        else:
+            lista_mezclada.append(derecha[0])
+            derecha.remove(derecha[0])
+    if len(izquierda) > 0:
+        lista_mezclada += izquierda
+    if len(derecha) > 0:
+        lista_mezclada += derecha
+    return lista_mezclada
+
+#puesto a prueba:
+print("Mezclar listas:")
+print(merge([11,3,81,7,45], [1,2,3,4,5]))
+
+#ordenar ovejas
+def count_sort(lista, maximo):
+    conteo=[0]*(maximo+1)
+    ordenada=[None]*len(lista)
+    for i in range(len(lista)):
+        conteo[lista[i]]+=1
+    for i in range(1, maximo+1):
+        conteo[i]+=conteo[i-1]
+    for i in range(len(lista)):
+        ordenada[conteo[lista[i]]-1]=lista[i]
+        conteo[lista[i]]-=1
+    return ordenada
+
+#puesto a prueba:
+print("Ordenar ovejas:")
+print(count_sort([9, 3, 1, 5, 9, 2, 0, 1], 9))
+
+#SECUENCIAL
+def secuencial(lista, valor):
+    posicion=-1
+    for i in range (0, len(lista)):
+        if lista[i]==valor:
+            posicion=i
+            break
+    return posicion
+
+#puesto a prueba:
+print("Secuencial:")
+print(secuencial([11,3,81,7,45], 81))
+
+#BINARIO
+def binario(lista, buscado):
+    posicion=-1
+    primero=0
+    ultimo=len(lista)-1
+    while primero<=ultimo and posicion==-1:
+        medio=(primero+ultimo)//2
+        if lista[medio]==buscado:
+            posicion=medio
+        elif lista[medio]>buscado:
+            ultimo=medio-1
+        else:
+            primero=medio+1
+    return posicion
+
