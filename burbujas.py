@@ -97,3 +97,47 @@ def seleccion(lista):
 print("Seleccion:")
 print(seleccion([11,3,81,7,45]))
 
+
+#Insertar
+#11   3  81  7   45   comparamos la primera posicion con si misma y al ser el menor se queda ahi
+#11<=>3<=>81  7   45   comparamos el 11 con el 3 y como es mayor que 3, comprobamos si los dos de al lado del 3 son menores que 3, como esta entre 11 y 81, el 3 va primero
+#3   11<=>81<=>7   45      comparamos la tercera posición, es el 81 y tiene el 11 y el 7 a cada lado, los dos son menores, el 11 ya lo hemos comprobado antes, asi que toca comprobar que es el 7 el que hay que mover
+#3  11  81<=>7<=>45      comparamos el 7 con el 45 y como es menor, se intercambian
+#3  11  7  81  45      volvemos a empezar y comparamos la segunda posición como el paso 2
+#3  7  11 81  45      comparamos la cuarta posición como el paso 3
+#3  7  11  45  81      comparamos la quinta posición como el paso 4
+
+def insercion(lista):
+    for i in range (1, len(lista)+1):   #i es el numero de pasadas, empezamos en 1 porque la primera posicion ya esta ordenada
+        k=i-1   #k es el numero de comparaciones
+        while k>0 and lista[k]<lista[k-1]:   #mientras que k sea mayor que 0 y el numero de la posicion k sea menor que el de la posicion k-1
+            lista[k], lista[k-1] = lista[k-1], lista[k]   #se intercambian
+            k-=1   #se decrementa k
+    return lista
+
+#puesto a prueba:
+print("Insercion:")
+print(insercion([11,3,81,7,45]))
+
+
+#quick sort
+#11  3  81  7   45  #81=pivote
+#(11 3) (81  7 45) #se divide la lista en dos partes
+#(11 3) 81<=>7  45
+#(11 3) 7  81  45
+#(11 3) 7 81<=>45
+#(11 3) 7 45  81
+#(11 3) 7<=>45<=>81  #se compara el 45 con respecto a los de su alrededor y no solo respecto al pivote, como su valor está entre los dos de su lado se deja asi
+#(11 3  7) 45  81  #el otro lado de la lista
+#(11<=>3<=>7) 45  81  
+#3  7  11  45  81  #se compara el 11 con respecto a los de su alrededor y no solo respecto al pivote, como su valor está entre los dos de su lado se deja asi
+
+def quicksort(lista, primero, ultimo):
+    izquierda=primero
+    derecha=ultimo-1
+    pivote=ultimo
+    while(izquierda<derecha):
+        while lista[izquierda]<lista[pivote] and izquierda<=derecha:
+            izquierda+=1
+        while lista[derecha]>lista[pivote] and derecha >= izquierda:
+            
