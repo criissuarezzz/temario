@@ -51,7 +51,8 @@ auxiliar = Torre()
 
 
 # Apilando discos en la torre de origen
-for i in range(74, 0, -1):
+for i in range(6, 0, -1):
+    print("Se ha movido el disco", i)
     disco = Disco(i)
     origen.apilar(disco)
 
