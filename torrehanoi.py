@@ -111,3 +111,4 @@ def main():
     print("Torre auxiliar: ", auxiliar.obtener_altura())
     print("Torre de destino: ", destino.obtener_altura())
 
+main()
