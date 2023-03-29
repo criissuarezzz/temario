@@ -43,6 +43,7 @@ def torres_hanoi(n, origen, destino, auxiliar):
 
 
 
+
 if __name__ == "__main__":
 
     origen = Torre()
@@ -52,7 +53,6 @@ if __name__ == "__main__":
     # Apilando discos en la torre de origen
     for i in range(6, 0, -1):
         print("Se ha movido el disco", i)
-        print("La torre de origen tiene", origen.obtener_altura(), "discos, la torre auxiliar tiene", auxiliar.obtener_altura(), "discos y la torre de destino tiene", destino.obtener_altura(), "discos")
         disco = Disco(i)
         origen.apilar(disco)
 
