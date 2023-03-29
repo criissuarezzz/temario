@@ -98,3 +98,13 @@ class Cola(object):
 
             print(dato)
             i+=1
+
+#experimentacion
+cola=Cola()
+cola.arribo(1)
+cola.arribo(2)
+cola.arribo(3)
+cola.barrido()
+cola.atencion()
+cola.mover_al_final(5)
+
