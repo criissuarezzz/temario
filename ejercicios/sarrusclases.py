@@ -20,10 +20,10 @@ class Lista(object):
                 act=act.sig
             nodo.sig=act
             ant.sig=nodo
-        lista.tamanio += 1
+            lista.tamanio += 1
 
-        def lista_vacia(lista):
-            return lista.inicio is None
+    def lista_vacia(lista):
+        return lista.inicio is None
         
-        def eliminar(lista, dato):
+    def eliminar(lista, dato):
             

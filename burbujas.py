@@ -156,7 +156,7 @@ print("Quick sort:")
 print(quicksort([11,3,81,7,45], 0, 4))
 
 
-#ordenamiento por mezcla
+#ordenamiento por mezcla     (merge sort)
 #11  3  81  7   45  #se divide la lista en dos partes
 #(11 3 81) (7 45)  #se divide cada una de las dos partes en dos partes
 #(11 3) (81) (7 45)  #se divide cada una de las cuatro partes en dos partes
