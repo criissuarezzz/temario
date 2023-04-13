@@ -52,7 +52,7 @@ class ArbolBinario:
             elif clave > self.raiz.info:
                 return ArbolBinario.buscar_posicion(self.raiz.der, clave, lista)
             else:
-                return lista.index(self.raiz.info)
+                return lista.index(clave) 
 
     def eliminar_nodo(self, clave):
         x = None
