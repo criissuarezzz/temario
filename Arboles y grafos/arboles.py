@@ -17,123 +17,107 @@
 #Bosque -> es un conjunto de dos o más árboles
 
 #Ejemplo de árbol binario, cada nodo tiene como máximo dos hijos
+from TDA.colas import Cola
+class nodoArbol(object):
+    """Clase nodo árbol"""
 
-class NodoArbol:
-    def __init__(self, info):
+    def _init_(self, info):
+        """Crea un nodo con la información cargada"""
         self.izq = None
         self.der = None
         self.info = info
-
-class ArbolBinario:
+    
     def eliminar_nodo(raiz, clave):
-        x= None
-        if raiz is not None:
-            if clave<raiz.info:
-                raiz.izq, x= NodoArbol.eliminar_nodo(raiz.izq, clave)
-            elif clave>raiz.info:
-                raiz.der, x= NodoArbol.eliminar_nodo(raiz.der, clave)
+        """Elimina un elemento del árbol y lo devuelve si lo encuentra"""
+        x = None
+        if (raiz is not None):
+            if(clave < raiz.info):
+                raiz.izq, x = nodoArbol.eliminar_nodo(raiz.izq, clave)
+            elif(clave > raiz.info):
+                raiz.der, x = nodoArbol(raiz.der, clave)
             else:
-                x= raiz.info
-                if raiz.izq is None:
-                    raiz= raiz.der
-                elif raiz.der is None:
-                    raiz= raiz.izq
+                x = raiz.info
+                if(raiz.izq is None):
+                    raiz = raiz.der
+                elif(raiz.der is None):
+                    raiz = raiz.izq
                 else:
-                    raiz.izq, aux= NodoArbol.remplazar(raiz.izq)
-                    raiz.info= aux.info
+                    raiz.izq, aux = nodoArbol.remplazar(raiz.izq)
+                    raiz.info = aux.info
         return raiz, x
     
+    def insertar_nodo(raiz, dato):
+        """Inserta un dato al árbol"""
+        if(raiz is None):
+            raiz = nodoArbol(dato)
+        elif(dato < raiz.info):
+            raiz.izq = nodoArbol.insertar_nodo(raiz.izq, dato)
+        else:
+            raiz.der = nodoArbol.insertar_nodo(raiz.der, dato)
+        return raiz
+
+    def arbolvacio(raiz):
+        """Devuelve true si el árbol esta vacío"""
+        return raiz is None
+
     def remplazar(raiz):
-        aux= None
-        if raiz.der is not None:
-            aux= raiz
+        """Determina el nodo que remplazará al que se elimina"""
+        aux = None
+        if (raiz.der is None):
+            aux = raiz
             raiz = raiz.izq
         else:
-            raiz, aux= NodoArbol.remplazar(raiz.der)
+            raiz.der, aux = nodoArbol.remplazar(raiz.der)
         return raiz, aux
     
-    def insertar_nodo(raiz, nodo):
-        if raiz is None:
-            raiz= NodoArbol(nodo.info)
-        else:
-            if nodo.info<raiz.info:
-                    NodoArbol.insertar_nodo(raiz.izq, nodo)
-            else:
-                if raiz.der is None:
-                    raiz.der= nodo
-                elif nodo.info<raiz.info:
-                    raiz.izq=NodoArbol.insertar_nodo(raiz.izq, nodo)
-                else:
-                    raiz.der= NodoArbol.insertar_nodo(raiz.der, nodo)
-        return raiz
-    
-    def arbolvacio(raiz):
-        return raiz is None
-    
     def por_nivel(raiz):
-        pendientes= Cola()
+        """Realiaza el barrido postorden del árbol"""
+        pendientes = Cola()
         Cola.arribo(pendientes, raiz)
-        while not Cola.cola_vacia(pendientes):
-            nodo= Cola.atencion(pendientes)
+        while(not Cola.cola_vacia(pendientes)):
+            nodo = Cola.atencion(pendientes)
             print(nodo.info)
-            if nodo.izq is not None:
+            if(nodo.izq is not None):
                 Cola.arribo(pendientes, nodo.izq)
-            if nodo.der is not None:
+            if(nodo.der is not None):
                 Cola.arribo(pendientes, nodo.der)
 
     def buscar(raiz, clave):
-        pos= None
-        if raiz is not None:
-            if raiz.info==clave:
-                pos= raiz
-            elif clave<raiz.info:
-                pos= NodoArbol.buscar(raiz.izq, clave)
+        """Devuelve la dirección del elemento buscado"""
+        pos = None
+        if(raiz is not None):
+            if(raiz.info == clave):
+                pos = raiz
+            elif clave < raiz.info:
+                pos = nodoArbol.buscar(raiz.izq, clave)
             else:
-                pos= NodoArbol.buscar(raiz.der, clave)
+                pos = nodoArbol.buscar(raiz.der, clave)
         return pos
     
     def inorden(raiz):
-        if raiz is not None:
-            NodoArbol.inorden(raiz.izq)
+        """Realiza el barrido inorden del árbol"""
+        if(raiz is not None):
+            nodoArbol.inorden(raiz.izq)
             print(raiz.info)
-            NodoArbol.inorden(raiz.der)
+            nodoArbol.inorden(raiz.der)
 
     def preorden(raiz):
-        if raiz is not None:
+        """Realiza el barrido preorden del árbol"""
+        if(raiz is not None):
             print(raiz.info)
-            NodoArbol.preorden(raiz.izq)
-            NodoArbol.preorden(raiz.der)
+            nodoArbol.preorden(raiz.izq)
+            nodoArbol.preorden(raiz.der)
 
     def postorden(raiz):
-        if raiz is not None:
-            NodoArbol.postorden(raiz.der)
+        """Realiza el barrido postorden del árbol"""
+        if(raiz is not None):
+            nodoArbol.postorden(raiz.der)
             print(raiz.info)
-            NodoArbol.postorden(raiz.izq)
+            nodoArbol.postorden(raiz.izq)
 
-    def cantidad_nodos(raiz):
-        if raiz is None:
-            return 0
-        else:
-            return 1+NodoArbol.cantidad_nodos(raiz.izq)+NodoArbol.cantidad_nodos(raiz.der)
-        
-    def cantidad_hojas(raiz):
-        if raiz is None:
-            return 0
-        elif raiz.izq is None and raiz.der is None:
-            return 1
-        else:
-            return NodoArbol.cantidad_hojas(raiz.izq)+NodoArbol.cantidad_hojas(raiz.der)
-        
-
-class Cola:
-    def __init__(self):
-        self.items=[]
-    
-    def arribo(self, dato):
-        self.items.append(dato)
-    
-    def atencion(self):
-        return self.items.pop(0)
-    
-    def cola_vacia(self):
-        return len(self.items)==0
+    def imprimir_arbol(raiz, nivel=0):
+        """Imprime por pantalla el arbol"""
+        if raiz is not None:
+            nodoArbol.imprimir_arbol(raiz.der, nivel + 1)
+            print('    ' * nivel + str(raiz.info))
+            nodoArbol.imprimir_arbol(raiz.izq, nivel + 1)
