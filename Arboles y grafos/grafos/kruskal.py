@@ -21,7 +21,8 @@ generador resultante, que es el árbol de expansión mínimo.
 """
 
 import grafos
-import monticulos as mont
+from arboles import monticulos as mont
+
 def kruskal(grafo):
     """Algoritmo de Kruskal para hallar el árbol de expansión mínimo de un grafo"""
     bosque = []

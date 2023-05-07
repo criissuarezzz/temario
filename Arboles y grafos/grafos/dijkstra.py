@@ -20,7 +20,7 @@ Finalmente, se devuelve la pila camino con los nodos visitados y sus distancias
 más cortas.
 """
 import grafos
-import monticulos as mont
+from arboles import monticulos as mont
 from TDA.pilas import Pila
 def dijkstra(grafo, origen):
     """Algoritmo de Dijkstra para hallar el camino más corto entre un vértice y los demás"""

@@ -19,7 +19,8 @@ los vértices del grafo y ser un árbol de expansión mínimo.
 """
 
 import grafos
-import monticulos as mont
+from arboles import monticulos as mont
+
 
 def prim(grafo):
     """Algoritmo de Prime para hallar el árbol de expansión mínimo de un grafo"""

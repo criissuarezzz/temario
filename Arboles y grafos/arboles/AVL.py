@@ -1,4 +1,4 @@
-from colas import Cola
+from TDA.colas import Cola
 
 class nodoArbol(object):
     """Clase nodo árbol"""
